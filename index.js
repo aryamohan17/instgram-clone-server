@@ -65,6 +65,22 @@ app.post('/viewUser',(req,res)=>{
     })
 })
 
+app.post('/searchuser',(req,res)=>{
+    dataservice.searchUser(req.body.username).then(result=>{
+        res.status(result.statusCode).json(result)
+    })
+})
+app.delete('/deleteuser/:username',(req,res)=>{
+    dataservice.deleteAccount(req.params.username).then(result=>{
+        res.status(result.statusCode).json(result)
+    })
+})
+// app.post('/viewCurrentUser',(req,res)=>{
+//     dataservice.viewCurrentUser(req.body._id).then(result=>{
+//         res.status(result.statusCode).json(result)
+//     })
+// })
+
 // app.post('/home',jwtToken,(req,res)=>{
 //     dataservice.home(req.body.)
 // })
@@ -72,6 +88,6 @@ app.post('/viewUser',(req,res)=>{
 
 
 // create port
-app.listen(3010,()=>{console.log("server started at port number 3000");})
+app.listen(5050,()=>{console.log("server started at port number 5010");})
 
 

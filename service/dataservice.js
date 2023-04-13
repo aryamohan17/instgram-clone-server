@@ -42,6 +42,7 @@ register = (email_ph, fullname, user_name, password,image_file) => {
 login=(emails,pass)=>{
     return db.User.findOne({email_phone:emails,password:pass}).then(user=>{
         if(user){
+             currentId=user._id,
             currentFullname=user.fullName,
             currentUserName = user.username,
             currentProfilePic = user.profile_photo
@@ -57,6 +58,7 @@ login=(emails,pass)=>{
                 status:true,
                 message:"Login sucessfully",
                 statusCode:200,
+                currentId,
                 currentFullname,
                 currentUserName,
                 currentProfilePic,
@@ -121,7 +123,7 @@ viewAll=()=>{
             return{
                 status:true,
                 statusCode:200,
-                allPosts:user,
+                allPosts:user
                 // allUsername:username
                 // allUserProfile:user.profile_photo
             }
@@ -144,8 +146,52 @@ viewUser=(username)=>{
                 userData:user
             }
         }
+        else{
+            return{
+                status:false,
+                statusCode:401,
+                message:"Invalid"
+            }    
+        }
     })
 }
+
+searchUser=(username)=>{
+    return db.User.findOne({username}).then(user=>{
+        if(user){
+            return{
+                status:true,
+                statusCode:200,
+                currentUserData:user
+            }
+        }
+        else{
+            return{
+                status:false,
+                statusCode:401,
+                message:"invalid"
+            }    
+        }
+    })
+}
+deleteAccount=(username)=>{
+    return db.User.deleteOne({username}).then(user=>{
+      if(user){
+        return{
+          status : true,
+          statusCode:200,
+          message:'account deleted'
+        }
+      }
+      else{
+        return{
+          status:false,
+          message:"user not exist",
+          statusCode:401
+        }
+      }
+    })
+  }
 module.exports={
-    register,login,viewAll,viewUser
+    register,login,viewAll,viewUser,searchUser,deleteAccount
 }

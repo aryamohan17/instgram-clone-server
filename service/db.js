@@ -6,6 +6,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/instagramCloneServer', { useNewUrlPa
 
 // model creation
 const User = mongoose.model('User', {
+    
     email_phone: String,
     fullName: String,
     username: String,
