@@ -192,6 +192,34 @@ deleteAccount=(username)=>{
       }
     })
   }
+  updateUser=(email_phone,fullName,username,password,profile_photo)=>{
+    return db.User.findOne({username}).then(user=>{
+        if(user){
+            user.email_phone=email_phone
+            user.fullName=fullName
+            // user.username=username
+            user.password=password
+            user.profile_photo=profile_photo
+            user.save();
+            return{
+                status:true,
+                statusCode:200,
+                updateData:user,
+                message:"profile updated"
+
+            }
+        }
+            else{
+                return{
+                    status:false,
+                    statusCode:400,
+                    message:"error"
+                }
+
+            }
+        })
+    }
+  
 module.exports={
-    register,login,viewAll,viewUser,searchUser,deleteAccount
+    register,login,viewAll,viewUser,searchUser,deleteAccount,updateUser
 }

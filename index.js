@@ -70,6 +70,13 @@ app.post('/searchuser',(req,res)=>{
         res.status(result.statusCode).json(result)
     })
 })
+app.post('/updateUser',(req,res)=>{
+    dataservice.updateUser(req.body.username).then(result=>{
+        res.status(result.statusCode).json(result)
+
+    })
+
+})
 app.delete('/deleteuser/:username',(req,res)=>{
     dataservice.deleteAccount(req.params.username).then(result=>{
         res.status(result.statusCode).json(result)
@@ -88,6 +95,6 @@ app.delete('/deleteuser/:username',(req,res)=>{
 
 
 // create port
-app.listen(5050,()=>{console.log("server started at port number 5010");})
+app.listen(5050,()=>{console.log("server started at port number 5050");})
 
 
